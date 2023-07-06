@@ -1,0 +1,6 @@
+df  = nfl_combine
+df_filtered = df[(df['weight'] < 180) | (df['weight'] > 250)]
+df_grouped = df.groupby('college')['weight'].agg([('underweight', lambda x: (x < 180).sum()),
+('overweight', lambda x: (x > 250).sum())])
+df_filtered = df_grouped[(df_grouped [ 'underweight'] > 0) | (df_grouped[ 'overweight'] > 0)]
+print(df_filtered.to_csv(sep='|', header=False))
